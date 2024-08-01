@@ -74,4 +74,5 @@ alias chmodx='chmod +x'                                              # Make a fi
 
 # Reload the .bashrc file to apply the aliases
 clear && whiptail --msgbox  "You can do it." 13 21 && tty-clock -Sc
-
+update-all
+cd /sdcard/
