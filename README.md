@@ -1,4 +1,4 @@
-# Nctrnm's code Repository
+# Nctrnm's Code Repository
 
 Welcome to the Nctrnm Code Repository, a curated collection of scripts and programs designed to streamline both business and personal tasks. This repository reflects my journey in programming and showcases various projects, from simple shell scripts to comprehensive compressed files.
 
