@@ -1,38 +1,33 @@
-#! /bin/sh
+#Matthew McGilvery
+#8.2.2024
+#Man Page to PDF converter
 
-# man2pdf -- Convert manual page to PDF via PS
-# Copyright (C) 2012 Matous J. Fialka, <http://mjf.cz/>
-# Released under the terms of The MIT License
-
-groff='groff -Tps -mandoc'
-ps2pdf='ps2pdf -'
-file=file
-man='man -w'
-zcat=zcat
-bzcat=bzcat
-
-if [ $# != 1 ]
-then
-	echo Usage: man2pdf [topic] [\>output.pdf]
-	exit 1
+#!/bin/bash
+# man2pdf.sh - Convert a man page to a 
+# PDF file
+if [ $# -ne 2 ]; then echo "Usage: $0 
+  <command> <output.pdf>" exit 1
+fi COMMAND=$1 OUTPUT=$2
+# Temporary files
+TXT_FILE="/tmp/${COMMAND}.txt" 
+PS_FILE="/tmp/${COMMAND}.ps"
+# Ensure temporary files are cleaned 
+# up on exit
+trap "rm -f $TXT_FILE $PS_FILE" EXIT
+# Generate plain text from man page
+if ! man $COMMAND > $TXT_FILE; then 
+  echo "Failed to generate man page 
+  for $COMMAND" exit 1
 fi
-
-if ! location=`$man $1`
-then
-	exit 1
+# Convert plain text to PostScript
+if ! enscript -B -p $PS_FILE 
+$TXT_FILE; then
+  echo "Failed to convert text to 
+  PostScript" exit 1
 fi
-
-case `$file $location`
-in
-	*gzip*)
-		$zcat $location | $groff	
-		;;
-	*bzip2*)
-		$bzcat $location | $groff	
-		;;
-	*troff*)
-		$groff $location
-		;;
-esac |
-
-$ps2pdf
+# Convert PostScript to PDF
+if ! ps2pdf $PS_FILE $OUTPUT; then 
+  echo "Failed to convert PostScript 
+  to PDF" exit 1
+fi
+echo "PDF generated as $OUTPUT"
