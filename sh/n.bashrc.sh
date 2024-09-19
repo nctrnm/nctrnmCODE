@@ -11,7 +11,7 @@
 # Version: 1.2
 
 # General navigation and file management
-alias bed='nano ~/.bashrc && source ~/.bashrc && ls -l /sdcard/Documents > /sdcard/Documents/aliases_$(date +"%m%d%Y").txt && cp ~/.bashrc ~/.bash_profile && cp ~/.bashrc /sdcard/Documents/code/sh/n.bashrc.sh' # Edit and reload .bashrc, create directory text file
+alias bed='nano ~/.bashrc && source ~/.bashrc && cp ~/.bashrc ~/.bashprofile && ls -l /sdcard/Documents > /sdcard/Documents/aliases_$(date +"%m%d%Y").txt && cp ~/.bashrc ~/.bash_profile && cp ~/.bashrc /sdcard/Documents/code/sh/n.bashrc.sh' # Edit and reload .bashrc, create directory text file
 alias i='apt-get install' # Install packages
 alias c='clear' # Clear the terminal screen
 alias h='history' # Show command history
@@ -99,6 +99,6 @@ git_sync() {
 
 # Alias to run the git_sync function
 alias sync_git='git_sync'
-cd /sdcard/
 # Usage: Run `sync_git` in your terminal to sync your repository automatically.
-cp ~/.bashrc ~/.bash_profile
+cp ~/.bashrc /sdcard/Documents/code/sh/n.bashrc.sh && git_sync
+cd /sdcard/
