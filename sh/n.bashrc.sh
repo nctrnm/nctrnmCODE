@@ -1,15 +1,21 @@
-# Matthew McGilvery
-# 2024-07-07
-#Termux Aliases Enhancement
 #!/bin/bash
-
+# Matthew McGilvery - 2024-09-10
 # Custom Aliases for Termux
+# 
+# Description:
+# This script sets up a collection of useful aliases and functions
+# for enhancing the Termux terminal experience. It includes shortcuts
+# for file management, system monitoring, Git operations, networking, and Termux-specific utilities.
+# Additionally, a Git synchronization process has been added for automated syncing.
+#
+# Version: 1.2
 
 # General navigation and file management
-alias bed='nano ~/.bashrc && source ~/.bashrc && ls -l /sdcard/Documents > /sdcard/Documents/aliases_$(date +"%m%d%Y").txt && cp ~/.bashrc ~/.bash_profile && cp ~/.bashrc /sdcard/Documents/code/sh/n.bashrc.sh' #Edit and reload .bashrc, create directory text file
+alias bed='nano ~/.bashrc && source ~/.bashrc && ls -l /sdcard/Documents > /sdcard/Documents/aliases_$(date +"%m%d%Y").txt && cp ~/.bashrc ~/.bash_profile && cp ~/.bashrc /sdcard/Documents/code/sh/n.bashrc.sh' # Edit and reload .bashrc, create directory text file
 alias i='apt-get install' # Install packages
 alias c='clear' # Clear the terminal screen
 alias h='history' # Show command history
+alias py='python'
 alias la='ls -a' # List all files including hidden
 alias copy='termux-clipboard-set' # Copy to clipboard
 alias ll='ls -alF' # Long list format with hidden files and types
@@ -17,10 +23,11 @@ alias ..='cd ..' # Go up one directory
 alias ...='cd ../..' # Go up two directories
 alias home='cd ~' # Go to home directory
 alias sdcard='cd /sdcard' # Go to sdcard directory
-
+alias op='termux-open'
+alias ggl="op https://enrypted.google.com/search?q=$*" #Limits Google search results to 8
 # Package management and system updates
 alias update='apt-get update && apt-get upgrade' # Update and upgrade packages
-alias install='apt-get install' # Install packages
+alias i='apt-get install' # Install packages
 alias remove='apt-get remove' # Remove packages
 alias search='apt-cache search' # Search for packages
 
@@ -28,7 +35,7 @@ alias search='apt-cache search' # Search for packages
 alias myip='curl ifconfig.me' # Get public IP address
 
 # Git shortcuts
-alias repo='cd /sdcard/Documents/code/' #Go to Github Repo
+alias repo='cd /sdcard/Documents/code/' # Go to GitHub Repo
 alias gs='git status' # Show git status
 alias ga='git add .' # Add all changes to git
 alias gc='git commit -m' # Commit with message
@@ -36,52 +43,62 @@ alias gp='git push' # Push changes to remote
 alias gl='git pull' # Pull changes from remote
 alias gb='git branch' # List branches
 
-# Custom utility aliases
-alias mkd='mkdir -p' # Create directories recursively
-alias grep='grep --color=auto' # Colorful grep
-alias man2pdf='bash /sdcard/Documents/code/sh/man2pdf.sh' # Convert man pages to PDF
-alias docs='cd ~/Documents' # Go to Documents directory
-alias dls='cd ~/Downloads' # Go to Downloads directory
+# Git sync process: Automating Git updates, adds, commits, and pushes
+git_sync() {
+    # Navigate to the GitHub repository directory
+    cd /sdcard/Documents/code/ || { echo "Directory not found"; return 1; }
 
-# Termux-specific shortcuts
-alias notify='termux-notification --title "Notification" --content' # Send a notification with content
-alias batt='termux-battery-status' # Show battery status
-alias photo='termux-camera-photo -c 0 /sdcard/photo.jpg' # Take a photo with the camera
-alias clipget='termux-clipboard-get' # Get clipboard content
-alias clipset='termux-clipboard-set' # Set clipboard content
-alias wifi='termux-wifi-connectioninfo' # Show WiFi connection information
-alias sensor='termux-sensor -s' # Get sensor data (e.g., accelerometer, light)
-alias vibrate='termux-vibrate' # Vibrate the device
+    echo "Starting Git sync process..."
 
-# New aliases
-alias pkgs='pkg list-all' # List all available packages
-alias tinfo='termux-info' # Show Termux information
-alias wake='termux-wake-lock' # Prevent device from sleeping
-alias sleep='termux-wake-unlock' # Allow device to sleep
-alias open='termux-open' # Open a file or URL with an app
-alias volup='termux-volume music 15' # Set volume to maximum
-alias voldown='termux-volume music 0' # Mute volume
-alias mkgif='ffmpeg -f image2 -i img%d.jpg -vf fps=10 output.gif' # Create a gif from images
-alias cpuinfo='lscpu' # Display CPU information
-alias meminfo='free -h' # Display memory information
-alias termux-setup='termux-setup-storage' # Setup storage access for Termux
-alias update-all='pkg update && pkg upgrade' # Update and upgrade all packages
-alias space='df -h' # Show disk space usage
-alias killall='killall -9' # Force kill a process by name
-alias down='termux-download' # Download a file
-alias rand='echo $RANDOM' # Generate a random number
-alias zip='zip -r' # Create a zip file
-alias unzip='unzip' # Extract a zip file
-alias mkfile='touch' # Create an empty file
-alias rmdir='rm -r' # Remove a directory
-alias chmodx='chmod +x' # Make a file executable
+    # Pull the latest changes from the remote repository
+    git pull
+    if [ $? -ne 0 ]; then
+        echo "Error pulling latest changes."
+        return 1
+    fi
 
-# Additional functions
-alias listapps='pm list packages' # List all installed apps
-alias listdata='ls -l /data/data' # List directories in /data/data (requires root)
-alias topcpu='top -n 1 -o %CPU' # Show processes sorted by CPU usage
-alias topmem='top -n 1 -o %MEM' # Show processes sorted by memory usage
-alias psinfo='ps -aux' # Show detailed process information
+    # Add all changes to the staging area
+    git add .
+    if [ $? -ne 0 ]; then
+        echo "Error adding changes."
+        return 1
+    fi
 
-# Reload the .bashrc file to apply the aliases
-cd /sdcard && clear && whiptail --msgbox "You can do it." 13 21 && tty-clock -Sc update-all
+    # Check for deleted, added, or updated files and create custom commit messages
+    if git diff --cached --name-only --diff-filter=A | grep '.'; then
+        # Files added
+        local commit_msg="a: $(date +"%Y-%m-%d %H:%M:%S") [about message]"
+    elif git diff --cached --name-only --diff-filter=M | grep '.'; then
+        # Files updated
+        local commit_msg="u: $(date +"%Y-%m-%d %H:%M:%S") [about message]"
+    elif git diff --cached --name-only --diff-filter=D | grep '.'; then
+        # Files deleted
+        local commit_msg="r: $(date +"%Y-%m-%d %H:%M:%S") [message]"
+    else
+        # No changes detected
+        echo "No changes to commit."
+        return 0
+    fi
+
+    # Commit the changes with the corresponding message
+    git commit -m "$commit_msg"
+    if [ $? -ne 0 ]; then
+        echo "Error committing changes."
+        return 1
+    fi
+
+    # Push changes to the remote repository
+    git push
+    if [ $? -ne 0 ]; then
+        echo "Error pushing changes."
+        return 1
+    fi
+
+    echo "Git sync completed successfully."
+}
+
+# Alias to run the git_sync function
+alias sync_git='git_sync'
+cd /sdcard/
+# Usage: Run `sync_git` in your terminal to sync your repository automatically.
+cp ~/.bashrc ~/.bash_profile
