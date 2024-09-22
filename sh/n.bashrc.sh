@@ -13,7 +13,7 @@
 
 # --- General navigation and file management --- 
 
-alias bed='nano ~/.bashrc && source ~/.bashrc && ls -l /sdcard/Documents > /sdcard/Documents/aliases_$(date +"%m%d%Y").txt && cp ~/.bashrc ~/.bash_profile && cp ~/.bashrc /sdcard/Documents/code/sh/aliases-for-termux.sh && source ~/.bashrc'
+alias bed='nano ~/.bashrc && source ~/.bashrc && cp ~/.bashrc ~/.bash_profile && cp ~/.bashrc /sdcard/Documents/code/sh/aliases-for-termux.sh && source ~/.bashrc'
 alias i='apt-get install'
 alias c='clear'
 alias gem='termux-open https://gemini.google.com'
