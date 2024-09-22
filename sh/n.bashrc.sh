@@ -65,16 +65,21 @@ git_sync() {
         return 1
     fi
 
-    # Check for deleted, added, or updated files and create custom commit messages
-    if git diff --cached --name-only --diff-filter=A | grep '.'; then
+    # Get list of added, modified, and deleted files
+    local added_files=$(git diff --cached --name-only --diff-filter=A)
+    local modified_files=$(git diff --cached --name-only --diff-filter=M)
+    local deleted_files=$(git diff --cached --name-only --diff-filter=D)
+
+    # Check for changes and create custom commit messages
+    if [ -n "$added_files" ]; then
         # Files added
-        local commit_msg="a: $(date +"%Y-%m-%d %H:%M:%S") [about message]"
-    elif git diff --cached --name-only --diff-filter=M | grep '.'; then
+        local commit_msg="a: $(date +"%Y-%m-%d %H:%M:%S") Added files: $added_files"
+    elif [ -n "$modified_files" ]; then
         # Files updated
-        local commit_msg="u: $(date +"%Y-%m-%d %H:%M:%S") [about message]"
-    elif git diff --cached --name-only --diff-filter=D | grep '.'; then
+        local commit_msg="u: $(date +"%Y-%m-%d %H:%M:%S") Updated files: $modified_files"
+    elif [ -n "$deleted_files" ]; then
         # Files deleted
-        local commit_msg="r: $(date +"%Y-%m-%d %H:%M:%S") [message]"
+        local commit_msg="r: $(date +"%Y-%m-%d %H:%M:%S") Removed files: $deleted_files"
     else
         # No changes detected
         echo "No changes to commit."
@@ -97,7 +102,6 @@ git_sync() {
 
     echo "Git sync completed successfully."
 }
-
 # Alias to run the git_sync function
 alias sync_git='git_sync'
 # Run `sync_git` in your terminal to sync your repository automatically and go to home directory
