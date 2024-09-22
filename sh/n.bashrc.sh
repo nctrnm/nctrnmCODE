@@ -11,7 +11,7 @@
 # Version: 1.2
 
 # General navigation and file management
-alias bed='nano ~/.bashrc && source ~/.bashrc && ls -l /sdcard/Documents > /sdcard/Documents/aliases_$(date +"%m%d%Y").txt && cp ~/.bashrc ~/.bash_profile && cp ~/.bashrc /sdcard/Documents/code/sh/n.bashrc.sh' # Edit and reload .bashrc, create directory text file, copy to repository
+alias bed='nano ~/.bashrc && source ~/.bashrc && ls -l /sdcard/Documents > /sdcard/Documents/aliases_$(date +"%m%d%Y").txt && cp ~/.bashrc ~/.bash_profile && cp ~/.bashrc /sdcard/Documents/code/sh/n.bashrc.sh && bash' # Edit and reload .bashrc, create directory text file, copy to repository
 alias i='apt-get install' # Install packages
 alias c='clear' # Clear the terminal screen
 alias gem='termux-open https://gemini.google.com' #Opem Google Gemininin web browser
