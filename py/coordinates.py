@@ -54,12 +54,12 @@ def main():
     coords2 = get_coordinates(city2)
 
     if coords1:
-        print(f"Coordinates of {city1}: Latitude {coords1[0]:.4f}, Longitude {coords1[1]:.4f}")
+        print(f"Coordinates of {city1} found successfully.")
     else:
         print(f"Unable to find coordinates for {city1}")
 
     if coords2:
-        print(f"Coordinates of {city2}: Latitude {coords2[0]:.4f}, Longitude {coords2[1]:.4f}")
+        print(f"Coordinates of {city2} found successfully.")
     else:
         print(f"Unable to find coordinates for {city2}")
 
