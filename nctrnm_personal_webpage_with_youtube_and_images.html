@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nctrnm's Official Webpage - Music Projects, Bio, Releases, and More">
+    <title>Nctrnm Official</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Page layout */
+        body {
+            background: linear-gradient(to bottom right, #220055, #000000); 
+            color: #00FFFF; 
+            font-family: 'IBM Plex Mono', monospace; 
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+        }
+
+        /* Header Styling */
+        header {
+            text-align: center; 
+            margin-bottom: 40px;
+            width: 100%; 
+        }
+
+        header h1 {
+            font-size: 3rem; 
+            color: #00FFFF;
+            text-shadow: 0 0 10px #00FFFF; 
+        }
+
+        /* Bio Section */
+        section {
+            width: 100%;
+            max-width: 800px; 
+            margin-bottom: 40px;
+            text-align: center; 
+            background-color: rgba(0, 0, 0, 0.5); 
+            padding: 20px;
+            border-radius: 10px; 
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #00FFFF;
+            text-align: center; 
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: center; 
+        }
+
+        strong { 
+            color: #FF6F61; 
+        }
+
+        /* Image Gallery */
+        .gallery {
+            display: flex;
+            justify-content: center; 
+            flex-wrap: wrap;
+        }
+
+        .gallery img {
+            max-width: 25%; 
+            margin: 10px; 
+            border-radius: 5px;
+            box-shadow: 0 0 5px #00FFFF; 
+            transition: transform 0.3s ease; 
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1); 
+        }
+
+        /* Music Section */
+        .video-container { 
+    display: flex;
+    justify-content: center;
+    width: 100%; /* Take up full width of its parent container */
+    margin-bottom: 20px;
+}
+
+iframe {
+    width: 100%; /* Take up full width of its container (.video-container) */
+    max-width: 600px; /* But don't exceed 600px */
+    height: 315px; 
+    border: 2px solid #00FFFF; 
+    border-radius: 5px;
+}
+
+        /* Social Media Sections */
+        .social-media {
+            display: flex;
+            justify-content: center; 
+            align-items: center;    
+            gap: 30px; 
+            width: 100%;
+            margin-top: 20px;
+            flex-wrap: wrap; 
+        }
+
+        .social-media.links a {
+            color: #00FFFF;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .social-media.icons a {
+            color: #00FFFF;
+            text-decoration: none;
+            font-size: 1.5rem; 
+            transition: transform 0.3s ease;
+        }
+
+        .social-media a:hover {
+            transform: scale(1.2); 
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            width: 100%; 
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Nctrnm</h1>
+        <p>Innovative Electronica Music, AI+AR-Enhanced Visuals, and Soundtracks</p>
+    </header>
+
+    <section id="bio">
+        <h2>About Nctrnm</h2>
+        <p>Nctrnm is a leftfield electronica artist pushing the boundaries of sound and visual experiences. 
+            With projects like <strong>FLUX</strong>, <strong>GEMINI</strong>, and <strong>PIXEL</strong>, Nctrnm creates music that resonates with individuals facing age-related crises and life's transitions.</p>
+        <p>He merges ambient electronic sounds with AI-and-AR-assisted visuals, crafting a dynamic multimedia experience. Whether dealing with existential themes or personal reflections, Nctrnm's music dives deep into the human condition. His recent releases, like 'Atlas,' have started to climb charts and garner attention from both fans and critics.</p>
+    </section>
+
+    <section id="music">
+        <h2>Music Projects</h2>
+        <p>Check out Nctrnm's latest music below:</p>
+
+        <div class="video-container"> 
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/DpfTwDPEJng" 
+                    title="YouTube video player" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <section id="releases">
+        <h2>Releases</h2>
+        <p>Listen to Nctrnm's music on your favorite platform:</p>
+        <div class="social-media links">
+            <a href="https://nctrnm.bandcamp.com/" target="_blank">Bandcamp</a> 
+ 	    <a href="https://www.pandora.com/artist/nctrnm/ARn7rKPPtVX2Z3k" target="_blank">Pandora</a>
+            <a href="https://soundcloud.com/Nctrnm" target="_blank">SoundCloud</a>
+            <a href="https://open.spotify.com/artist/Nctrnm" target="_blank">Spotify</a> 
+            <a href="https://www.youtube.com/@Nctrnm" target="_blank">YouTube</a> 
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2>Visual Gallery</h2>
+        <div class="gallery">
+            <img src="https://f4.bcbits.com/img/a0816440987_16.jpg" alt="Nctrnm Art 2">
+            <img src="https://f4.bcbits.com/img/a2980248024_16.jpg" alt="Nctrnm Art 3">
+        </div>
+    </section>
+
+    <section id="social">
+        <h2>Follow Nctrnm</h2>
+        <div class="social-media icons">
+	    <a href="https://www.facebook.com/Nctrnm" target="_blank">Facebook</a>
+            <a href="https://www.instagram.com/Nctrnm" target="_blank">Instagram</a>
+            <a href="https://soundcloud.com/Nctrnm" target="_blank">SoundCloud</a>
+	    <a href="https://nctrnm.tumblr.com/" target="_blank">Tumblr</a>
+	    <a href="https://x.com/Nctrnm" target="_blank">X</a>
+        </div>
+    </section>
